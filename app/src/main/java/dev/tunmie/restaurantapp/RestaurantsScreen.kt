@@ -25,6 +25,9 @@ import dev.tunmie.restaurantapp.ui.theme.RestaurantAppTheme
 @Composable
 fun RestaurantsScreen() {
 	val viewModel: RestaurantsViewModel = viewModel()
+	LaunchedEffect(key1 = "request_restaurants") {
+		viewModel.getRestaurants()
+	}
 	LazyColumn(
 		contentPadding = PaddingValues(
 			vertical = 8.dp,
