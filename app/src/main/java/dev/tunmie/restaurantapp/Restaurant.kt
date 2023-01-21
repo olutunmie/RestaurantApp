@@ -3,7 +3,8 @@ package dev.tunmie.restaurantapp
 data class Restaurant(
 	val id: Int,
 	val title: String,
-	val description: String
+	val description: String,
+	var isFavorite: Boolean = false
 )
 
 
