@@ -24,88 +24,85 @@ import dev.tunmie.restaurantapp.ui.theme.RestaurantAppTheme
 
 @Composable
 fun RestaurantsScreen() {
-	val viewModel: RestaurantsViewModel = viewModel()
-	LaunchedEffect(key1 = "request_restaurants") {
-		viewModel.getRestaurants()
-	}
-	LazyColumn(
-		contentPadding = PaddingValues(
-			vertical = 8.dp,
-			horizontal = 8.dp
-		)
-	) {
-		items(viewModel.state.value) { restaurant ->
-			RestaurantItem(restaurant) { id ->
-				viewModel.toggleFavorite(id)
-			}
-		}
-	}
+    val viewModel: RestaurantsViewModel = viewModel()
+    LazyColumn(
+        contentPadding = PaddingValues(
+            vertical = 8.dp,
+            horizontal = 8.dp
+        )
+    ) {
+        items(viewModel.state.value) { restaurant ->
+            RestaurantItem(restaurant) { id ->
+                viewModel.toggleFavorite(id)
+            }
+        }
+    }
 }
 
 
 @Composable
 fun RestaurantItem(item: Restaurant, onClick: (id: Int) -> Unit) {
-	val icon = if (item.isFavorite)
-		Icons.Filled.Favorite
-	else
-		Icons.Filled.FavoriteBorder
-	Card(
-		elevation = 4.dp,
-		modifier = Modifier.padding(8.dp)
-	) {
-		Row(
-			verticalAlignment = Alignment.CenterVertically,
-			modifier = Modifier.padding(8.dp)
-		) {
-			RestaurantIcon(
-				Icons.Filled.Place,
-				Modifier.weight(0.15f)
-			)
-			RestaurantDetails(item.title, item.description, Modifier.weight(0.7f))
-			RestaurantIcon(icon, modifier = Modifier.weight(0.15f)) {
-				onClick(item.id)
-			}
-		}
-	}
+    val icon = if (item.isFavorite)
+        Icons.Filled.Favorite
+    else
+        Icons.Filled.FavoriteBorder
+    Card(
+        elevation = 4.dp,
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            RestaurantIcon(
+                Icons.Filled.Place,
+                Modifier.weight(0.15f)
+            )
+            RestaurantDetails(item.title, item.description, Modifier.weight(0.7f))
+            RestaurantIcon(icon, modifier = Modifier.weight(0.15f)) {
+                onClick(item.id)
+            }
+        }
+    }
 }
 
 @Composable
 private fun RestaurantIcon(icon: ImageVector, modifier: Modifier, onClick: () -> Unit = {}) {
-	Image(
-		imageVector = icon,
-		contentDescription = "Restaurant Icon",
-		modifier = modifier
-			.padding(8.dp)
-			.clickable { onClick() }
-	)
+    Image(
+        imageVector = icon,
+        contentDescription = "Restaurant Icon",
+        modifier = modifier
+            .padding(8.dp)
+            .clickable { onClick() }
+    )
 }
 
 @Composable
 private fun RestaurantDetails(title: String, description: String, modifier: Modifier) {
-	Column(modifier = modifier) {
-		Text(text = title, style = MaterialTheme.typography.h6)
-		CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-			Text(text = description, style = MaterialTheme.typography.body2)
-		}
-	}
+    Column(modifier = modifier) {
+        Text(text = title, style = MaterialTheme.typography.h6)
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(text = description, style = MaterialTheme.typography.body2)
+        }
+    }
 }
 
 @Composable
 private fun FavoriteIcon(icon: ImageVector, modifier: Modifier, onClick: () -> Unit) {
 
-	Image(
-		imageVector = icon,
-		contentDescription = "Favourite restaurant icon",
-		modifier = modifier
-			.padding(8.dp)
-			.clickable { onClick() }
-	)
+    Image(
+        imageVector = icon,
+        contentDescription = "Favourite restaurant icon",
+        modifier = modifier
+            .padding(8.dp)
+            .clickable { onClick() }
+    )
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-	RestaurantAppTheme {
-		RestaurantsScreen()
-	}
+    RestaurantAppTheme {
+        RestaurantsScreen()
+    }
 }
